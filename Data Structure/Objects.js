@@ -69,8 +69,8 @@ const myProfile = {
 };
 
 
-// 🏅 Create an object about yourself (myProfile) that contains your name, skills (skills - this can be an Array), and a method that prints 
-// a short description about you to the console. Then use destructuring to display your name and a skill in a separate variable.
+// 🏅 Create an object about yourself (myProfile) that contains your name, skills (skills - this can be an Array), and a method that 
+// prints a short description about you to the console. Then use destructuring to display your name and a skill in a separate variable.
 
 // Destructuring
 const {fullName, skills} = myProfile;
