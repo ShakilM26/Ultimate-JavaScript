@@ -80,3 +80,55 @@ const account = bankAccount();
 
 account.deposit(500);
 console.log(account.getBalance());
+
+
+// ---------------------------------------------------------
+
+function createCounter() {
+    let count = 0; // এটি বাইরের ফাংশনের ভেরিয়েবল
+
+    return function() { 
+        count++; // ভেতরের ফাংশন বাইরের 'count' কে ব্যবহার করছে
+        return count;
+    };
+}
+
+const counter = createCounter(); 
+console.log(counter());
+console.log(counter());
+console.log(counter());
+
+// ১. createCounter() ফাংশনটি কল করার পর তার কাজ শেষ হয়ে যাওয়ার কথা এবং count ভেরিয়েবলটি মেমোরি থেকে মুছে যাওয়ার কথা।
+// ২. কিন্তু counter ভেরিয়েবলটি যখন আমরা কল করছি, সে ঠিকই count এর মান মনে রাখছে এবং আপডেট করছে।
+// ৩. এই যে ভেতরের ফাংশনটি তার বাইরের পরিবেশকে (Environment) "পকেটে ভরে" নিয়ে আসলো, এটাই হলো Closure।
+
+
+// ৩. কেন ক্লোজার ব্যবহার করবো? (Real-life Use Case)
+// ক্লোজার মূলত Data Privacy বা ডেটা গোপন রাখার জন্য ব্যবহার করা হয়। উপরের উদাহরণে, count ভেরিয়েবলটি বাইরের কেউ সরাসরি 
+// পরিবর্তন করতে পারবে না (যেমন: কেউ count = 100 লিখে দিতে পারবে না)। শুধুমাত্র counter() ফাংশনটি ব্যবহার করেই এটি আপডেট করা সম্ভব।
+
+
+// ৪. Closure - Modern Example (Private State)
+function gamePlayer(name) {
+    let score = 0;
+
+    return {
+        increaseScore: function() {
+            score ++;
+            console.log(`${name}'s score is now ${score}`);
+        },
+        getScore: function() {
+            return score;
+        }
+    };
+}
+
+const player1 = gamePlayer('Steve');
+player1.increaseScore();
+player1.increaseScore();
+
+console.log(player1.score)
+
+// Closure তৈরি হয় যখন একটি ফাংশন অন্য একটি ফাংশনের ভেতর থাকে।
+// এটি বাইরের ফাংশনের ভেরিয়েবলকে ধরে রাখে ফাংশন ডেড হয়ে গেলেও।
+// এটি রি-ইউজেবল এবং প্রাইভেট কোড লিখতে সাহায্য করে।
